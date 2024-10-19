@@ -104,14 +104,6 @@ export async function createTicket({
   via_id,
 }: CreateTicket): Promise<Ticket> {
 
-  if (!comment) {
-    throw new Error(`Missing 'comment' value`)
-  }
-
-  if (!requester_id) {
-    throw new Error(`Missing 'requester_id' value`)
-  }
-
   try {
     const zendesk = zendeskClient({ token, subdomain, username });
 
