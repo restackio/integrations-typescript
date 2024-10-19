@@ -8,7 +8,7 @@ export class DiscordClient {
         this.botToken = botToken;
     }
 
-    public post_message(message: string, channel_id: string) {
+    public postMessage(message: string, channel_id: string) {
         const messageUrl = `/channels/${channel_id}/messages`
         const url = DISCORD_BASE_URL + messageUrl;
         const body = {
@@ -23,6 +23,10 @@ export class DiscordClient {
             'body': JSON.stringify(body),
             'headers': headers
         }
-        return fetch(url, options);
+        return fetch(url, options).then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+        });
     }
 }

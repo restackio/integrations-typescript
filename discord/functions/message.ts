@@ -12,7 +12,7 @@ export async function postMessageToChannel({
 }){
     try {
         const client = new DiscordClient(botToken);
-        return client.post_message(messageText, channelId);
+        return client.postMessage(messageText, channelId);
     } catch (error) {
         log.error("Discord integration error", { error });
         throw new Error(`Discord integration error ${error}`);
