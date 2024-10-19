@@ -23,10 +23,7 @@ export class DiscordClient {
             'body': JSON.stringify(body),
             'headers': headers
         }
-        return fetch(url, options).then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-        });
+        return fetch(url, options)
+            .then(response => response.json());
     }
 }
