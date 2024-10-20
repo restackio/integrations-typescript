@@ -18,8 +18,8 @@ export async function createNonStreamingMessage({
   token?: string;
 }): Promise<Message> {
 
-  if (!text) {
-    throw new Error(`Missing 'text' value`)
+  if (!body) {
+    throw new Error(`Missing 'body' value`)
   }
 
   try {
