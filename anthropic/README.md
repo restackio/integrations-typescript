@@ -1,0 +1,62 @@
+# Anthropic for Restack
+
+This package provides an integration for Anthropic with Restack, allowing:
+
+- [creating a non-streaming message](https://docs.anthropic.com/en/api/messages)
+
+## Installation
+
+To install the package, use npm or yarn:
+
+```bash
+npm install @restackio/integrations-anthropic
+```
+
+## Configuration
+
+Before using the Anthropic integration you need to set up your Anthropic API token. You can do this by setting an environment variable or passing it directly to the functions.
+
+1. Set up environment variables:
+
+```bash
+ANTHROPIC_API_KEY=your_anthropic_api_token
+```
+
+2. Or pass them directly when calling the functions (see Usage section).
+
+## Usage
+
+### Starting the Anthropic Service
+
+To start the Anthropic service, use the `anthropicService` function:
+
+```typescript
+import Restack from "@restackio/ai";
+import { anthropicService } from "@restackio/integrations-anthropic";
+
+const client = new Restack();
+
+anthropicService({ client }).catch((err) => {
+  console.error("Error starting Anthropic service:", err);
+});
+```
+
+### Using the Anthropic Create Non Streaming Message Function
+
+This function allows the [creation of a non-streaming messages](https://docs.anthropic.com/en/api/messages).
+
+```typescript
+import { createNonStreamingMessage } from "@restackio/integrations-anthropic/functions";
+
+const result = await createNonStreamingMessage({
+  headers, // optional
+  body: {
+    max_tokens: 100,
+    messages: [{ "role": "user", "content": "What is your purpose?" }],
+    model: 'claude-3-5-sonnet-20240620',
+  },
+  token = // optional if set in environment variables
+});
+
+console.log(result);
+```
