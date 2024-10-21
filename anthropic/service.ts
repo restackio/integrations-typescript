@@ -1,5 +1,5 @@
 import Restack, { ServiceInput } from "@restackio/ai";
-import { createNonStreamingMessage, createStreamingMessage } from "./functions";
+import { createMessage, createStreamingMessage } from "./functions";
 import { anthropicTaskQueue } from "./taskQueue";
 
 export async function anthropicService({
@@ -11,7 +11,7 @@ export async function anthropicService({
 }) {
   await client.startService({
     taskQueue: anthropicTaskQueue,
-    functions: { createNonStreamingMessage, createStreamingMessage },
+    functions: { createMessage, createStreamingMessage },
     options,
   });
 }

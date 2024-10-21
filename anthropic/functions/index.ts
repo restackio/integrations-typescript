@@ -1,2 +1,2 @@
-export * from "./createNonStreamingMessage";
+export * from "./createMessage";
 export * from "./createStreamingMessage";

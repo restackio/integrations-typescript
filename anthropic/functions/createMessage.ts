@@ -8,7 +8,7 @@ import { anthropicClient } from "../utils/client";
  *
  * @see {@link https://docs.anthropic.com/en/api/messages}
  */
-export async function createNonStreamingMessage({
+export async function createMessage({
   headers = null,
   body,
   token,
