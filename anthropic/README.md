@@ -3,6 +3,7 @@
 This package provides an integration for Anthropic with Restack, allowing:
 
 - [creating a non-streaming message](https://docs.anthropic.com/en/api/messages)
+- [creating a streaming message](https://docs.anthropic.com/en/api/messages-streaming)
 
 ## Installation
 
@@ -56,6 +57,28 @@ const result = await createNonStreamingMessage({
     model: 'claude-3-5-sonnet-20240620',
   },
   token = // optional if set in environment variables
+});
+
+console.log(result);
+```
+
+### Using the Anthropic Create Streaming Message Function
+
+This function allows the [creation of a streaming message](https://docs.anthropic.com/en/api/messages-streaming).
+
+```typescript
+import { createStreamingMessage } from "@restackio/integrations-anthropic/functions";
+
+const result = await createStreamingMessage({
+  headers, // optional
+  body: {
+    max_tokens: 100,
+    messages: [{ "role": "user", "content": "What is your purpose?" }],
+    model: 'claude-3-5-sonnet-20240620',
+  },
+  token = // optional if set in environment variables
+}).on('text', (text) => {
+  console.log(text);
 });
 
 console.log(result);
