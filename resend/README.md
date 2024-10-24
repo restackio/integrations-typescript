@@ -1,35 +1,34 @@
-# Restack Deepgram Integration
+# Restack Resend Integration
 
-This package provides an integration for Deepgram's speech-to-text and text-to-speech services within the Restack AI framework.
+This package provides an integration for Resend's email services within the Restack AI framework.
 
 ## Installation
 
-To install the Deepgram integration, use npm or yarn:
+To install the Resend integration, use npm or yarn:
 
 ```bash
-npm install @restackio/integrations-deepgram
+npm install @restackio/integrations-resend
 ```
 
 ## Configuration
 
-Before using the Deepgram integration, make sure to set up your Deepgram API key. You can do this by setting the `DEEPGRAM_API_KEY` environment variable or by passing the API key directly to the client.
+Before using the Resend integration, make sure to set up your Resend API key. You can do this by setting the `RESEND_API_KEY` environment variable or by passing the API key directly to the client.
 
 ## Usage
 
-### Initializing the Deepgram Service
+### Initializing the Resend Service
 
-To start the Deepgram service:
+To start the Resend service:
 
 ```typescript
 // services.ts
-
 import Restack from "@restackio/ai";
-import { deepgramService } from "@restackio/integrations-deepgram";
+import { resendService } from "@restackio/integrations-resend";
 
 export async function services() {
   const client = new Restack();
-  deepgramService({ client }).catch((err) => {
-    console.error("Error starting Deepgram service:", err);
+  resendService({ client }).catch((err) => {
+    console.error("Error starting Resend service:", err);
   });
 }
 
@@ -40,53 +39,28 @@ services().catch((err) => {
 
 ### Available Functions
 
-This integration provides two main functions:
+This integration provides the main function:
 
-1. `deepgramListen`: Transcribe audio to text
-2. `deepgramSpeak`: Convert text to speech
+1. `resendSendEmail`: Send emails using Resend
 
-#### Transcribing Audio (Speech-to-Text)
-
-```typescript
-// transcribeAudioWorkflow.ts
-
-import { log, step } from "@restackio/ai/workflow";
-import * as deepgramFunctions from "@restackio/integrations-deepgram/functions";
-import { deepgramTaskQueue } from "@restackio/integerations-deepgram/taskQueue";
-
-export async function transcribeAudioWorkflow() {
-  const result = await step<typeof deepgramFunctions>({
-    taskQueue: deepgramTaskQueue,
-  }).deepgramListen({
-    base64Payload: "your_base64_encoded_audio",
-    options: {
-      model: "nova-2",
-      punctuate: true,
-      interim_results: true,
-      endpointing: 500,
-      utterance_end_ms: 2000,
-    },
-  });
-  log.info("result", { result: result.transcript });
-}
-```
-
-#### Converting Text to Speech
+#### Sending Emails
 
 ```typescript
+// sendEmailWorkflow.ts
 import { log, step } from "@restackio/ai/workflow";
-import * as deepgramFunctions from "@restackio/integrations-deepgram/functions";
-import { deepgramTaskQueue } from "@restackio/integerations-deepgram/taskQueue";
+import * as resendFunctions from "@restackio/integrations-resend/functions";
+import { resendTaskQueue } from "@restackio/integrations-resend/taskQueue";
 
-export async function deepgramSpeakWorkflow() {
-  const result = await step<typeof deepgramFunctions>({
-    taskQueue: deepgramTaskQueue,
-  }).deepgramSpeak({
-    text: "Hello, world!",
-    options: {
-      model: "aura-arcas-en",
+export async function sendEmailWorkflow() {
+  const result = await step<typeof resendFunctions>({
+    taskQueue: resendTaskQueue,
+  }).resendSendEmail({
+    payload: {
+      to: "recipient@example.com",
+      subject: "Hello from Resend",
+      body: "This is a test email.",
     },
   });
-  log.info("result", { result: result.media.payload }); // Base64 encoded audio
+  log.info("result", { result });
 }
 ```
