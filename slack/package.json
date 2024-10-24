@@ -1,6 +1,6 @@
 {
-  "name": "@restackio/integrations-openai",
-  "version": "0.0.27",
+  "name": "@restackio/integrations-slack",
+  "version": "0.0.1",
   "main": "dist/service.js",
   "types": "dist/service.d.ts",
   "scripts": {
@@ -10,7 +10,8 @@
     "build": "npm run clean && tsc"
   },
   "dependencies": {
-    "openai": "^4.67.1"
+    "@slack/web-api": "^7.6.0",
+    "dotenv": "^16.4.5"
   },
   "files": [
     "dist"
@@ -40,11 +41,6 @@
       "import": "./dist/types/index.js",
       "require": "./dist/types/index.js",
       "types": "./dist/types/index.ts"
-    },
-    "./utils": {
-      "import": "./dist/utils/index.js",
-      "require": "./dist/utils/index.js",
-      "types": "./dist/utils/index.ts"
     }
   }
 }
